@@ -38,6 +38,15 @@ spec:
       value: $(params.source-code-url)
     - name: revision
       value: $(params.commit-sha)
+  - name: pipenv-requirements
+    runAfter:
+    - fetch-source
+    taskRef:
+      name: pipenv-requirements
+      kind: ClusterTask
+    workspaces:
+    - name: source
+      workspace: shared-data
   - name: image-tag
     taskRef:
       name: gen-image-tag
@@ -48,6 +57,7 @@ spec:
   - name: build-push
     runAfter:
     - fetch-source
+    - pipenv-requirements
     - image-tag
     taskRef:
       name: buildpacks
