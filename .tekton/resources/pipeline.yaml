@@ -38,15 +38,15 @@ spec:
       value: $(params.source-code-url)
     - name: revision
       value: $(params.commit-sha)
-  # - name: pipenv-requirements
-  #   runAfter:
-  #   - fetch-source
-  #   taskRef:
-  #     name: pipenv-requirements
-  #     kind: ClusterTask
-  #   workspaces:
-  #   - name: source
-  #     workspace: shared-data
+  - name: pipenv-requirements
+    runAfter:
+    - fetch-source
+    taskRef:
+      name: pipenv-requirements
+      kind: ClusterTask
+    workspaces:
+    - name: source
+      workspace: shared-data
   - name: image-tag
     taskRef:
       name: gen-image-tag
@@ -57,7 +57,7 @@ spec:
   - name: build-push
     runAfter:
     - fetch-source
-    # - pipenv-requirements
+    - pipenv-requirements
     - image-tag
     taskRef:
       name: buildpacks
@@ -72,7 +72,7 @@ spec:
       value: gcr.io/buildpacks/builder:v1
     - name: ENV_VARS
       value:
-      - GOOGLE_ENTRYPOINT="uvicorn main:app --host=0.0.0.0 --port=8080 --workers=4 --log-level=debug"
+      - GOOGLE_ENTRYPOINT=uvicorn main:app --host=0.0.0.0 --port=8080 --workers=4 --log-level=debug
     - name: APP_IMAGE
       value: $(params.image-registry-url):$(tasks.image-tag.results.tag)
   - name: kn-apply
