@@ -8,7 +8,7 @@ pipenv install
 
 ## How to build?
 ```bash
-pipenv lock -r > requirements.txt
+pipenv requirements > requirements.txt
 pack build --builder=gcr.io/buildpacks/builder:v1 --publish wei840222/abnormal-metrics-detection:1 --env GOOGLE_ENTRYPOINT="uvicorn main:app --host=0.0.0.0 --port=8080 --workers=4 --log-level=debug"
 ```
 
