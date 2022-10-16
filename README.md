@@ -16,3 +16,8 @@ pack build --builder=gcr.io/buildpacks/builder:v1 --publish wei840222/abnormal-m
 ```bash
 kn ksvc apply --image=wei840222/abnormal-metrics-detection:1 abnormal-metrics-detection
 ```
+
+## How to deploy by tekton?
+```bash
+kubectl apply -k .tekton
+```
