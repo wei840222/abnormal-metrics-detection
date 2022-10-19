@@ -1,5 +1,5 @@
-# abnormal-metrics-detection
-API for detecte abnormal metrics
+# tsad
+API for time series anomaly detection.
 
 ## How to install dependencies
 ```bash
